@@ -1,9 +1,9 @@
-package selenium.page;
+package selenium.page.admin;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class AdminMenu {
+public class MenuPage {
     private final By listApp = By.xpath("//li[@id = \"app-\"]");
     private final By listDoc = By.xpath(".//li/a");
     private final By header = By.xpath("//h1");
