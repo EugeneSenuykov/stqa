@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import selenium.page.admin.CountriesPage;
 import selenium.page.admin.MenuPage;
 import selenium.page.LoginPage;
 import selenium.page.customer.MainPage;
@@ -16,6 +17,7 @@ public class BaseTest {
     private final LoginPage loginPage = new LoginPage();
     private final MenuPage menuPage = new MenuPage();
     private final MainPage mainPage = new MainPage();
+    private final CountriesPage countriesPage = new CountriesPage();
 
     @BeforeEach
     public void setUp() {
@@ -33,6 +35,13 @@ public class BaseTest {
     public void checkStickers() {
         driver.get("http://localhost:8080/litecart");
         mainPage.checkSticker(driver);
+    }
+
+    @Test
+    public void checkCountries() {
+        loginPage.login(driver, "admin", "admin");
+        countriesPage.checkAlphabetOrder(driver);
+        countriesPage.checkGeoZone(driver);
     }
 
     @AfterEach

@@ -7,6 +7,7 @@ public class MenuPage {
     private final By listApp = By.xpath("//li[@id = \"app-\"]");
     private final By listDoc = By.xpath(".//li/a");
     private final By header = By.xpath("//h1");
+    private final String buttonMenu = "//span[text()=\"%s\"]";
 
     public void clickListMenu(WebDriver driver) {
         int countMainMenu = driver.findElements(listApp).size();
@@ -23,4 +24,9 @@ public class MenuPage {
             }
         }
     }
+
+    protected By clickMenuButton(String menuName) {
+        return By.xpath(String.format(buttonMenu, menuName));
+    }
+
 }
