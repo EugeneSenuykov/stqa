@@ -1,18 +1,15 @@
 package selenium.page.admin;
 
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CountriesPage extends MenuPage {
     private final By rowsCountries = By.cssSelector("tr.row");
     private final By linkCountries = By.cssSelector("a:not([title])");
     private final By countZones = By.xpath("./td[last()-1]");
-    private final By valuesZones = By.xpath("//input[contains(@name, \"name\") and @type=\"hidden\"]/..");
 
     private final WebDriver driver;
 
@@ -28,7 +25,7 @@ public class CountriesPage extends MenuPage {
         isSortAlphabet(countries, "стран");
     }
 
-    public void checkGeoZone() {
+    public List<String> findGeoZone() {
         List<String> linksZone = new ArrayList<>();
 
         driver.findElement(clickMenuButton("Countries")).click();
@@ -39,19 +36,6 @@ public class CountriesPage extends MenuPage {
             }
         });
 
-        for (String s : linksZone) {
-            driver.get(s);
-            List<String> nameZones = new ArrayList<>();
-            driver.findElements(valuesZones).forEach(e -> nameZones.add(e.getText()));
-            isSortAlphabet(nameZones, s);
-        }
-    }
-
-    private void isSortAlphabet(List<String> list, String listName) {
-        List<String> zonesSort = new ArrayList<>(list);
-        Collections.sort(zonesSort);
-
-        Assertions.assertEquals(list, zonesSort,
-                String.format("Список %s отсортирован не в алфавитном порядке", listName));
+        return linksZone;
     }
 }

@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import selenium.page.admin.CountriesPage;
+import selenium.page.admin.GeoZonesPage;
 import selenium.page.admin.MenuPage;
-import selenium.page.LoginPage;
+import selenium.page.admin.LoginPage;
 import selenium.page.customer.MainPage;
 
 import java.time.Duration;
@@ -18,6 +19,7 @@ public class BaseTest {
     private MenuPage menuPage;
     private MainPage mainPage;
     private CountriesPage countriesPage;
+    private GeoZonesPage geoZonesPage;
 
     @BeforeEach
     public void setUp() {
@@ -46,10 +48,11 @@ public class BaseTest {
     public void checkCountries() {
         loginPage = new LoginPage(driver);
         countriesPage = new CountriesPage(driver);
+        geoZonesPage = new GeoZonesPage(driver);
 
         loginPage.login("admin", "admin");
         countriesPage.checkAlphabetOrder();
-        countriesPage.checkGeoZone();
+        geoZonesPage.checkGeoZone(countriesPage.findGeoZone());
     }
 
     @AfterEach

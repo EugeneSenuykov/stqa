@@ -2,8 +2,9 @@ package selenium.page.admin;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import selenium.page.BasePage;
 
-public class MenuPage {
+public class MenuPage extends BasePage {
     private final By listApp = By.xpath("//li[@id = \"app-\"]");
     private final By listDoc = By.xpath(".//li/a");
     private final By header = By.xpath("//h1");
