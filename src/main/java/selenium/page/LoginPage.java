@@ -8,7 +8,13 @@ public class LoginPage {
     private final By password = By.name("password");
     private final By login = By.name("login");
 
-    public void login(WebDriver driver, String userLogin, String userPass) {
+    private final WebDriver driver;
+
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void login(String userLogin, String userPass) {
         driver.get("http://localhost:8080/litecart/admin");
         driver.findElement(username).sendKeys(userLogin);
         driver.findElement(password).sendKeys(userPass);

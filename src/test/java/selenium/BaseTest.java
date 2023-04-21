@@ -14,10 +14,10 @@ import java.time.Duration;
 
 public class BaseTest {
     private WebDriver driver;
-    private final LoginPage loginPage = new LoginPage();
-    private final MenuPage menuPage = new MenuPage();
-    private final MainPage mainPage = new MainPage();
-    private final CountriesPage countriesPage = new CountriesPage();
+    private LoginPage loginPage;
+    private MenuPage menuPage;
+    private MainPage mainPage;
+    private CountriesPage countriesPage;
 
     @BeforeEach
     public void setUp() {
@@ -27,21 +27,29 @@ public class BaseTest {
 
     @Test
     public void checkAllAdminSectionTest() {
-        loginPage.login(driver, "admin", "admin");
-        menuPage.clickListMenu(driver);
+        loginPage = new LoginPage(driver);
+        menuPage = new MenuPage(driver);
+
+        loginPage.login("admin", "admin");
+        menuPage.clickListMenu();
     }
 
     @Test
     public void checkStickers() {
+        mainPage = new MainPage(driver);
+
         driver.get("http://localhost:8080/litecart");
-        mainPage.checkSticker(driver);
+        mainPage.checkSticker();
     }
 
     @Test
     public void checkCountries() {
-        loginPage.login(driver, "admin", "admin");
-        countriesPage.checkAlphabetOrder(driver);
-        countriesPage.checkGeoZone(driver);
+        loginPage = new LoginPage(driver);
+        countriesPage = new CountriesPage(driver);
+
+        loginPage.login("admin", "admin");
+        countriesPage.checkAlphabetOrder();
+        countriesPage.checkGeoZone();
     }
 
     @AfterEach

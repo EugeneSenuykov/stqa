@@ -12,9 +12,15 @@ public class CountriesPage extends MenuPage {
     private final By rowsCountries = By.cssSelector("tr.row");
     private final By linkCountries = By.cssSelector("a:not([title])");
     private final By countZones = By.xpath("./td[last()-1]");
-    private final By valuesZones = By.xpath("//input[contains(@name, \"name\") and @type=\"hidden\"]");
+    private final By valuesZones = By.xpath("//input[contains(@name, \"name\") and @type=\"hidden\"]/..");
 
-    public void checkAlphabetOrder(WebDriver driver) {
+    private final WebDriver driver;
+
+    public CountriesPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void checkAlphabetOrder() {
         driver.findElement(clickMenuButton("Countries")).click();
         List<String> countries = new ArrayList<>();
         driver.findElements(rowsCountries).forEach(e -> countries.add(e.findElement(linkCountries).getText()));
@@ -22,7 +28,7 @@ public class CountriesPage extends MenuPage {
         isSortAlphabet(countries, "стран");
     }
 
-    public void checkGeoZone(WebDriver driver) {
+    public void checkGeoZone() {
         List<String> linksZone = new ArrayList<>();
 
         driver.findElement(clickMenuButton("Countries")).click();
@@ -36,8 +42,7 @@ public class CountriesPage extends MenuPage {
         for (String s : linksZone) {
             driver.get(s);
             List<String> nameZones = new ArrayList<>();
-            driver.findElements(valuesZones).forEach(e -> nameZones.add(e.getAttribute("value")));
-
+            driver.findElements(valuesZones).forEach(e -> nameZones.add(e.getText()));
             isSortAlphabet(nameZones, s);
         }
     }

@@ -9,7 +9,16 @@ public class MenuPage {
     private final By header = By.xpath("//h1");
     private final String buttonMenu = "//span[text()=\"%s\"]";
 
-    public void clickListMenu(WebDriver driver) {
+    private WebDriver driver;
+
+    public MenuPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public MenuPage() {
+    }
+
+    public void clickListMenu() {
         int countMainMenu = driver.findElements(listApp).size();
         for (int i = 0; i < countMainMenu; i++) {
             driver.findElements(listApp).get(i).click();
