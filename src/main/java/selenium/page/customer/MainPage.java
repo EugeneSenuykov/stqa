@@ -8,8 +8,14 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class MainPage {
-    private final By productsList = By.cssSelector("li.product");
     private final By sticker = By.cssSelector("div.sticker");
+    private final By productsList = By.cssSelector("li.product");
+    protected final By productsCampaigns = By.xpath("//h3[text()=\"Campaigns\"]//following-sibling::div//li");
+    protected final By productName = By.cssSelector("div.name");
+    protected final By mainPrice = By.cssSelector("div.price-wrapper");
+    protected final By regularPrice = By.cssSelector("s.regular-price");
+    protected final By campaignPrice = By.cssSelector("strong.campaign-price");
+
     private final WebDriver driver;
 
     public MainPage(WebDriver driver) {

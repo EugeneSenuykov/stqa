@@ -10,6 +10,7 @@ import selenium.page.admin.GeoZonesPage;
 import selenium.page.admin.MenuPage;
 import selenium.page.admin.LoginPage;
 import selenium.page.customer.MainPage;
+import selenium.page.customer.ProductPage;
 
 import java.time.Duration;
 
@@ -20,6 +21,7 @@ public class BaseTest {
     private MainPage mainPage;
     private CountriesPage countriesPage;
     private GeoZonesPage geoZonesPage;
+    private ProductPage productPage;
 
     @BeforeEach
     public void setUp() {
@@ -62,6 +64,14 @@ public class BaseTest {
 
         loginPage.login("admin", "admin");
         geoZonesPage.isAlphabetGeoZones();
+    }
+
+    @Test
+    public void checkProductsTest() {
+        productPage = new ProductPage(driver);
+
+        driver.get("http://localhost:8080/litecart");
+        productPage.checkProduct();
     }
 
     @AfterEach
