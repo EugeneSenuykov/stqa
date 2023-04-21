@@ -37,7 +37,7 @@ public class BaseTest {
     }
 
     @Test
-    public void checkStickers() {
+    public void checkStickersTest() {
         mainPage = new MainPage(driver);
 
         driver.get("http://localhost:8080/litecart");
@@ -45,7 +45,7 @@ public class BaseTest {
     }
 
     @Test
-    public void checkCountries() {
+    public void checkCountriesTest() {
         loginPage = new LoginPage(driver);
         countriesPage = new CountriesPage(driver);
         geoZonesPage = new GeoZonesPage(driver);
@@ -53,6 +53,15 @@ public class BaseTest {
         loginPage.login("admin", "admin");
         countriesPage.checkAlphabetOrder();
         geoZonesPage.checkGeoZone(countriesPage.findGeoZone());
+    }
+
+    @Test
+    public void checkPageEditGeoZoneTest() {
+        loginPage = new LoginPage(driver);
+        geoZonesPage = new GeoZonesPage(driver);
+
+        loginPage.login("admin", "admin");
+        geoZonesPage.isAlphabetGeoZones();
     }
 
     @AfterEach
