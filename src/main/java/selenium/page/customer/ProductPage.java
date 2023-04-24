@@ -89,9 +89,16 @@ public class ProductPage extends MainPage {
         }
     }
 
-    private String getColor(String rgbaColor) {
-        rgbaColor = rgbaColor.substring(5, rgbaColor.length() - 1);
-        List<String> colorArr = List.of(rgbaColor.split(", "));
+    private String getColor(String color) {
+        if(color.contains("rgba")) {
+            color = color.substring(5, color.length() - 1);
+        } else if(color.contains("rgb")) {
+            color = color.substring(4, color.length() - 1);
+        } else {
+            throw new IllegalArgumentException("Неверный формат цвета");
+        }
+
+        List<String> colorArr = List.of(color.split(", "));
         List<Integer> numbers = new ArrayList<>();
         colorArr.forEach(e -> numbers.add(Integer.parseInt(e)));
 
@@ -106,7 +113,10 @@ public class ProductPage extends MainPage {
     }
 
     private Boolean isBold(String text) {
-        return text.equals("700") || text.equals("bold");
+        return switch (text) {
+            case "700", "800", "900", "bold", "bolder" -> true;
+            default -> false;
+        };
     }
 
     private Boolean compareFontSize(String regular, String campaign) {
