@@ -10,10 +10,12 @@ import selenium.page.admin.CountriesPage;
 import selenium.page.admin.GeoZonesPage;
 import selenium.page.admin.MenuPage;
 import selenium.page.admin.LoginPage;
+import selenium.page.customer.CreateAccountPage;
 import selenium.page.customer.MainPage;
 import selenium.page.customer.ProductPage;
 
 import java.time.Duration;
+import java.util.Map;
 
 public class BaseTest {
     private WebDriver driver;
@@ -23,6 +25,7 @@ public class BaseTest {
     private CountriesPage countriesPage;
     private GeoZonesPage geoZonesPage;
     private ProductPage productPage;
+    private CreateAccountPage createAccountPage;
 
     @BeforeEach
     public void setUp() {
@@ -73,6 +76,19 @@ public class BaseTest {
 
         driver.get("http://localhost:8080/litecart");
         productPage.checkProduct();
+    }
+
+    @Test
+    public void userRegistrationTest() {
+        createAccountPage = new CreateAccountPage(driver);
+        mainPage = new MainPage(driver);
+        Map<String, String> credential;
+
+        driver.get("http://localhost:8080/litecart");
+        credential = createAccountPage.createNewAccount();
+        mainPage.logOut();
+        mainPage.userLogIn(credential);
+        mainPage.logOut();
     }
 
     @AfterEach
