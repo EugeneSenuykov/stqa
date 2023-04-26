@@ -35,7 +35,7 @@ public class MenuPage extends BasePage {
         }
     }
 
-    protected By clickMenuButton(String menuName) {
+    protected By findMenuButton(String menuName) {
         return By.xpath(String.format(buttonMenu, menuName));
     }
 

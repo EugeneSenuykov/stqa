@@ -28,7 +28,7 @@ public class GeoZonesPage extends MenuPage {
 
     public void isAlphabetGeoZones() {
         List<String> links = new ArrayList<>();
-        driver.findElement(clickMenuButton("Geo Zones")).click();
+        driver.findElement(findMenuButton("Geo Zones")).click();
         driver.findElements(listNames).forEach(e -> links.add(e.getAttribute("href")));
 
         links.forEach(e -> {

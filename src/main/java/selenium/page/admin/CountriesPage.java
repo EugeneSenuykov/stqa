@@ -18,7 +18,7 @@ public class CountriesPage extends MenuPage {
     }
 
     public void checkAlphabetOrder() {
-        driver.findElement(clickMenuButton("Countries")).click();
+        driver.findElement(findMenuButton("Countries")).click();
         List<String> countries = new ArrayList<>();
         driver.findElements(rowsCountries).forEach(e -> countries.add(e.findElement(linkCountries).getText()));
 
@@ -28,7 +28,7 @@ public class CountriesPage extends MenuPage {
     public List<String> findGeoZone() {
         List<String> linksZone = new ArrayList<>();
 
-        driver.findElement(clickMenuButton("Countries")).click();
+        driver.findElement(findMenuButton("Countries")).click();
 
         driver.findElements(rowsCountries).forEach(e -> {
             if (Integer.parseInt(e.findElement(countZones).getText()) > 0) {
