@@ -25,7 +25,7 @@ public class BaseTest {
 
     @BeforeEach
     public void setUp() {
-        driver = new ChromeDriver();
+        driver = new FirefoxDriver();
     }
 
     @AfterEach

@@ -39,7 +39,7 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test
-    public void checkBasketTest() throws InterruptedException {
+    public void checkBasketTest() {
         productPage = new ProductPage(driver);
         basketPage = new BasketPage(driver);
 
