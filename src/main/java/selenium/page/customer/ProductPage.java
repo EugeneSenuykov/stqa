@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,10 @@ import java.util.List;
 public class ProductPage extends MainPage {
     private final By productTitle = By.cssSelector("h1.title");
     private final By priceWrapper = By.cssSelector("div.information div.price-wrapper");
+    private final By buttonAddProduct = By.xpath("//button[@name='add_cart_product']");
+    private final By buttonHome = By.xpath("//a[text()=\"Home\"]");
+    private final By options = By.xpath("//td[@class=\"options\"]");
+    private final By selectOptions = By.xpath("//select[@name=\"options[Size]\"]");
 
     private final WebDriver driver;
 
@@ -72,6 +77,40 @@ public class ProductPage extends MainPage {
                 "Campaign price less than regular price for product page");
     }
 
+    public void openProductPage() {
+        int count = Integer.parseInt(driver.findElement(basketCount).getText());
+        if (count == 0) {
+            for (int i = 0; i < 3; i++) {
+                String basketText = driver.findElement(basketCount).getText();
+                driver.findElements(productsList).get(0).click();
+
+                if (driver.findElements(options).size() > 0) {
+                    new Select(driver.findElement(selectOptions)).selectByIndex(1);
+                }
+
+                driver.findElement(buttonAddProduct).click();
+                isVisible(driver.findElement(basketCount), basketText);
+                driver.findElement(buttonHome).click();
+            }
+        } else {
+            Assertions.fail("Корзина не пуста");
+        }
+    }
+
+    private Boolean isVisible(WebElement element, String text) {
+        for (int i = 0; i < 10; i++) {
+            if (element.getText().equals(text)) {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private String getTextElement(WebElement element, By wrapper, By price) {
         if (element.findElement(wrapper).findElement(price).isDisplayed()) {
@@ -90,9 +129,9 @@ public class ProductPage extends MainPage {
     }
 
     private String getColor(String color) {
-        if(color.contains("rgba")) {
+        if (color.contains("rgba")) {
             color = color.substring(5, color.length() - 1);
-        } else if(color.contains("rgb")) {
+        } else if (color.contains("rgb")) {
             color = color.substring(4, color.length() - 1);
         } else {
             throw new IllegalArgumentException("Неверный формат цвета");

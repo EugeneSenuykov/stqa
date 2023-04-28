@@ -6,11 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import selenium.page.admin.*;
+import selenium.page.customer.BasketPage;
 import selenium.page.customer.CreateAccountPage;
 import selenium.page.customer.MainPage;
 import selenium.page.customer.ProductPage;
-
-import java.time.Duration;
 
 public class BaseTest {
     protected WebDriver driver;
@@ -22,11 +21,11 @@ public class BaseTest {
     protected ProductPage productPage;
     protected CreateAccountPage createAccountPage;
     protected AddNewProductPage addNewProductPage;
+    protected BasketPage basketPage;
 
     @BeforeEach
     public void setUp() {
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
     }
 
     @AfterEach

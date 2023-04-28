@@ -1,6 +1,7 @@
 package selenium;
 
 import org.junit.jupiter.api.Test;
+import selenium.page.customer.BasketPage;
 import selenium.page.customer.CreateAccountPage;
 import selenium.page.customer.MainPage;
 import selenium.page.customer.ProductPage;
@@ -35,6 +36,16 @@ public class CustomerTest extends BaseTest {
         mainPage.logOut();
         mainPage.userLogIn(credential);
         mainPage.logOut();
+    }
+
+    @Test
+    public void checkBasketTest() throws InterruptedException {
+        productPage = new ProductPage(driver);
+        basketPage = new BasketPage(driver);
+
+        driver.get("http://localhost:8080/litecart");
+        productPage.openProductPage();
+        basketPage.deleteAllProduct();
     }
 
 }

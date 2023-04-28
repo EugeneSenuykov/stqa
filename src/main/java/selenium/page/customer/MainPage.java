@@ -10,19 +10,20 @@ import java.util.Map;
 
 public class MainPage {
     private final By sticker = By.cssSelector("div.sticker");
-    private final By productsList = By.cssSelector("li.product");
     private final By logout = By.xpath("//h3[text()=\"Account\"]/..//a[text()=\"Logout\"]");
-
     private final By emailLogin = By.xpath("//input[@name=\"email\"]");
     private final By passLogin = By.xpath("//input[@name=\"password\"]");
     private final By buttonLogin = By.xpath("//button[@name=\"login\"]");
 
+    protected final By productsList = By.cssSelector("li.product");
     protected final By productsCampaigns = By.xpath("//h3[text()=\"Campaigns\"]//following-sibling::div//li");
     protected final By productName = By.cssSelector("div.name");
     protected final By mainPrice = By.cssSelector("div.price-wrapper");
     protected final By regularPrice = By.cssSelector("s.regular-price");
     protected final By campaignPrice = By.cssSelector("strong.campaign-price");
     protected final By createUser = By.xpath("//form[@name=\"login_form\"]//tr[last()]//a");
+    protected final By basketCount = By.xpath("//span[@class=\"quantity\"]");
+    protected final By checkout = By.xpath("//a[text()=\"Checkout »\"]");
 
     private final WebDriver driver;
 
