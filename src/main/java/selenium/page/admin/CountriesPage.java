@@ -10,6 +10,7 @@ public class CountriesPage extends MenuPage {
     private final By rowsCountries = By.cssSelector("tr.row");
     private final By linkCountries = By.cssSelector("a:not([title])");
     private final By countZones = By.xpath("./td[last()-1]");
+    protected final By addNewCountryButton = By.xpath("//a[@class=\"button\"]");
 
     private final WebDriver driver;
 

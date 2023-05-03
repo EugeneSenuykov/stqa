@@ -35,11 +35,20 @@ public class AdminTest extends BaseTest {
     }
 
     @Test
-    public void addNewProduct() {
+    public void addNewProductTest() {
         loginPage = new LoginPage(driver);
         addNewProductPage = new AddNewProductPage(driver);
 
         loginPage.login("admin", "admin");
         addNewProductPage.addProduct();
+    }
+
+    @Test
+    public void checkLinksTest() {
+        loginPage = new LoginPage(driver);
+        addNewCountryPage = new AddNewCountryPage(driver);
+
+        loginPage.login("admin", "admin");
+        addNewCountryPage.checkLinks();
     }
 }

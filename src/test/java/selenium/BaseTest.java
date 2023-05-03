@@ -22,14 +22,16 @@ public class BaseTest {
     protected CreateAccountPage createAccountPage;
     protected AddNewProductPage addNewProductPage;
     protected BasketPage basketPage;
+    protected AddNewCountryPage addNewCountryPage;
 
     @BeforeEach
     public void setUp() {
-        driver = new FirefoxDriver();
+        driver = new ChromeDriver();
     }
 
     @AfterEach
     public void stop() {
         driver.close();
+        driver.quit();
     }
 }
