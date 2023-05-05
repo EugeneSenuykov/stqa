@@ -31,6 +31,7 @@ public class AddNewCountryPage extends CountriesPage {
             driver.findElements(blankList).get(i).click();
             handles = driver.getWindowHandles();
             handles.remove(mainWindow);
+            wait.until((WebDriver driver) -> driver.getWindowHandles().size() > 1);
 
             String[] array = handles.toArray(new String[0]);
             driver.switchTo().window(array[0]);
