@@ -23,6 +23,7 @@ public class BaseTest {
     protected AddNewProductPage addNewProductPage;
     protected BasketPage basketPage;
     protected AddNewCountryPage addNewCountryPage;
+    protected CatalogPage catalogPage;
 
     @BeforeEach
     public void setUp() {

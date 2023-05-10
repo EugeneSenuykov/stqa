@@ -51,4 +51,14 @@ public class AdminTest extends BaseTest {
         loginPage.login("admin", "admin");
         addNewCountryPage.checkLinks();
     }
+
+    @Test
+    public void checkLogs() {
+        loginPage = new LoginPage(driver);
+        catalogPage = new CatalogPage(driver);
+
+        loginPage.login("admin", "admin");
+        driver.get("http://localhost:8080/litecart/admin/?app=catalog&doc=catalog&category_id=1");
+        catalogPage.findLogs();
+    }
 }
