@@ -4,12 +4,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.logging.LoggingPreferences;
 import selenium.page.admin.*;
 import selenium.page.customer.BasketPage;
 import selenium.page.customer.CreateAccountPage;
 import selenium.page.customer.MainPage;
 import selenium.page.customer.ProductPage;
+
+import java.util.logging.Level;
 
 public class BaseTest {
     protected WebDriver driver;
@@ -27,7 +31,11 @@ public class BaseTest {
 
     @BeforeEach
     public void setUp() {
-        driver = new ChromeDriver();
+        LoggingPreferences prefs = new LoggingPreferences();
+        prefs.enable("browser", Level.WARNING);
+        ChromeOptions options = new ChromeOptions();
+        options.setCapability("goog:loggingPrefs", prefs);
+        driver = new ChromeDriver(options);
     }
 
     @AfterEach

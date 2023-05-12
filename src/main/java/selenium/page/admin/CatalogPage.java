@@ -29,7 +29,7 @@ public class CatalogPage extends MenuPage {
         listProducts.forEach(e -> {
             driver.get(e);
             wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
-            driver.manage().logs().get("client").getAll().forEach(
+            driver.manage().logs().get("browser").getAll().forEach(
                     ex -> Assertions.assertTrue(ex.getMessage().isEmpty())
             );
         });
