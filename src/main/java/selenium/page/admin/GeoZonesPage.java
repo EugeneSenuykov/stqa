@@ -14,6 +14,7 @@ public class GeoZonesPage extends MenuPage {
     private final WebDriver driver;
 
     public GeoZonesPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

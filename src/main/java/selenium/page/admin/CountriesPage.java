@@ -15,6 +15,7 @@ public class CountriesPage extends MenuPage {
     private final WebDriver driver;
 
     public CountriesPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

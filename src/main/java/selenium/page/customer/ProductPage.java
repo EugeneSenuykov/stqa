@@ -4,25 +4,35 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductPage extends MainPage {
-    private final By productTitle = By.cssSelector("h1.title");
-    private final By priceWrapper = By.cssSelector("div.information div.price-wrapper");
-    private final By buttonAddProduct = By.xpath("//button[@name='add_cart_product']");
-    private final By buttonHome = By.xpath("//a[text()=\"Home\"]");
-    private final By options = By.xpath("//td[@class=\"options\"]");
-    private final By selectOptions = By.xpath("//select[@name=\"options[Size]\"]");
+    @FindBy(css = "h1.title")
+    public WebElement productTitle;
 
-    private final WebDriver driver;
+    @FindBy(css = "div.information div.price-wrapper")
+    public WebElement priceWrapper;
 
+    @FindBy(xpath = "//button[@name='add_cart_product']")
+    public WebElement buttonAddProduct;
+
+    @FindBy(xpath = "//a[text()=\"Home\"]")
+    public WebElement buttonHome;
+
+    @FindBy(xpath = "//td[@class=\"options\"]")
+    public List<WebElement> options;
+
+    @FindBy(xpath = "//select[@name=\"options[Size]\"]")
+    public WebElement selectOptions;
 
     public ProductPage(WebDriver driver) {
         super(driver);
-        this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public void checkProduct() {
@@ -42,17 +52,17 @@ public class ProductPage extends MainPage {
 
         product.click();
 
-        String productName = driver.findElement(productTitle).getText();
-        String subRegularPrice = getTextDriver(driver, priceWrapper, regularPrice);
-        String subCampaignPrice = getTextDriver(driver, priceWrapper, campaignPrice);
+        String productName = productTitle.getText();
+        String subRegularPrice = getTextDriver(priceWrapper, regularPrice);
+        String subCampaignPrice = getTextDriver(priceWrapper, campaignPrice);
 
-        String subColorRegularPrice = driver.findElement(priceWrapper).findElement(regularPrice).getCssValue("color");
-        String subTextDecorateRegularPrice = driver.findElement(priceWrapper).findElement(regularPrice).getCssValue("text-decoration");
+        String subColorRegularPrice = priceWrapper.findElement(regularPrice).getCssValue("color");
+        String subTextDecorateRegularPrice = priceWrapper.findElement(regularPrice).getCssValue("text-decoration");
 
-        String subColorCampaignPrice = driver.findElement(priceWrapper).findElement(campaignPrice).getCssValue("color");
-        String subTextCampaignPrice = driver.findElement(priceWrapper).findElement(campaignPrice).getCssValue("font-weight");
-        String subFontSizeRegularPrice = driver.findElement(priceWrapper).findElement(regularPrice).getCssValue("font-size");
-        String subFontSizeCampaignPrice = driver.findElement(priceWrapper).findElement(campaignPrice).getCssValue("font-size");
+        String subColorCampaignPrice = priceWrapper.findElement(campaignPrice).getCssValue("color");
+        String subTextCampaignPrice = priceWrapper.findElement(campaignPrice).getCssValue("font-weight");
+        String subFontSizeRegularPrice = priceWrapper.findElement(regularPrice).getCssValue("font-size");
+        String subFontSizeCampaignPrice = priceWrapper.findElement(campaignPrice).getCssValue("font-size");
 
 
         Assertions.assertEquals(mainProductName, productName, "Product name does not match");
@@ -77,41 +87,6 @@ public class ProductPage extends MainPage {
                 "Campaign price less than regular price for product page");
     }
 
-    public void openProductPage() {
-        int count = Integer.parseInt(driver.findElement(basketCount).getText());
-        if (count == 0) {
-            for (int i = 0; i < 3; i++) {
-                String basketText = driver.findElement(basketCount).getText();
-                driver.findElements(productsList).get(0).click();
-
-                if (driver.findElements(options).size() > 0) {
-                    new Select(driver.findElement(selectOptions)).selectByIndex(1);
-                }
-
-                driver.findElement(buttonAddProduct).click();
-                isVisible(driver.findElement(basketCount), basketText);
-                driver.findElement(buttonHome).click();
-            }
-        } else {
-            Assertions.fail("Корзина не пуста");
-        }
-    }
-
-    private Boolean isVisible(WebElement element, String text) {
-        for (int i = 0; i < 10; i++) {
-            if (element.getText().equals(text)) {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private String getTextElement(WebElement element, By wrapper, By price) {
         if (element.findElement(wrapper).findElement(price).isDisplayed()) {
             return element.findElement(wrapper).findElement(price).getText();
@@ -120,9 +95,9 @@ public class ProductPage extends MainPage {
         }
     }
 
-    private String getTextDriver(WebDriver webDriver, By wrapper, By price) {
-        if (webDriver.findElement(wrapper).findElement(price).isDisplayed()) {
-            return webDriver.findElement(wrapper).findElement(price).getText();
+    private String getTextDriver(WebElement wrapper, By price) {
+        if (wrapper.findElement(price).isDisplayed()) {
+            return wrapper.findElement(price).getText();
         } else {
             return null;
         }

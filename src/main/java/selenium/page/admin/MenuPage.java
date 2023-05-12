@@ -13,11 +13,10 @@ public class MenuPage extends BasePage {
     private WebDriver driver;
 
     public MenuPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
-    public MenuPage() {
-    }
 
     public void clickListMenu() {
         int countMainMenu = driver.findElements(listApp).size();

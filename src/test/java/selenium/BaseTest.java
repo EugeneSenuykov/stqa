@@ -28,19 +28,24 @@ public class BaseTest {
     protected BasketPage basketPage;
     protected AddNewCountryPage addNewCountryPage;
     protected CatalogPage catalogPage;
+    protected Application app;
 
     @BeforeEach
     public void setUp() {
-        LoggingPreferences prefs = new LoggingPreferences();
-        prefs.enable("browser", Level.WARNING);
-        ChromeOptions options = new ChromeOptions();
-        options.setCapability("goog:loggingPrefs", prefs);
-        driver = new ChromeDriver(options);
+//        LoggingPreferences prefs = new LoggingPreferences();
+//        prefs.enable("browser", Level.WARNING);
+//        ChromeOptions options = new ChromeOptions();
+//        options.setCapability("goog:loggingPrefs", prefs);
+//        driver = new ChromeDriver(options);
+        app = new Application();
+
+        Runtime.getRuntime().addShutdownHook(
+                new Thread(() -> { app.quit(); app = null; }));
     }
 
-    @AfterEach
-    public void stop() {
-        driver.close();
-        driver.quit();
-    }
+//    @AfterEach
+//    public void stop() {
+//        driver.close();
+//        driver.quit();
+//    }
 }

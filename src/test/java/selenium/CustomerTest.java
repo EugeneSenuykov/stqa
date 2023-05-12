@@ -1,7 +1,7 @@
 package selenium;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import selenium.page.customer.BasketPage;
 import selenium.page.customer.CreateAccountPage;
 import selenium.page.customer.MainPage;
 import selenium.page.customer.ProductPage;
@@ -40,12 +40,9 @@ public class CustomerTest extends BaseTest {
 
     @Test
     public void checkBasketTest() {
-        productPage = new ProductPage(driver);
-        basketPage = new BasketPage(driver);
+        Integer count = app.checkBasket();
 
-        driver.get("http://localhost:8080/litecart");
-        productPage.openProductPage();
-        basketPage.deleteAllProduct();
+        Assertions.assertEquals(0, count);
     }
 
 }
