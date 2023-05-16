@@ -1,6 +1,5 @@
 package selenium;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import selenium.page.customer.CreateAccountPage;
 import selenium.page.customer.MainPage;
@@ -37,12 +36,4 @@ public class CustomerTest extends BaseTest {
         mainPage.userLogIn(credential);
         mainPage.logOut();
     }
-
-    @Test
-    public void checkBasketTest() {
-        Integer count = app.checkBasket();
-
-        Assertions.assertEquals(0, count);
-    }
-
 }

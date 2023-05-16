@@ -1,5 +1,10 @@
 package selenium;
 
+import io.cucumber.java.After;
+import io.cucumber.java.ru.Дано;
+import io.cucumber.java.ru.И;
+import io.cucumber.java.ru.Когда;
+import io.cucumber.java.ru.Тогда;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -19,6 +24,7 @@ public class Application {
     private BasePage basePage;
     private ProductPage productPage;
     private BasketPage basketPage;
+    private int countBasket;
 
     public Application() {
         driver = new ChromeDriver();
@@ -27,13 +33,13 @@ public class Application {
         basketPage = new BasketPage(driver);
     }
 
-    public Integer checkBasket() {
-        basePage.open("http://localhost:8080/litecart");
-        openProductPage();
-        return(deleteAllProduct());
+    @Дано("пользователь открывает страницу магазина")
+    public void openSite() {
+        driver.get("http://localhost:8080/litecart");
     }
 
-    private void openProductPage() {
+    @Когда("добавляем товары в корзину")
+    public void openProductPage() {
         int count = Integer.parseInt(productPage.basketCount.getText());
         if (count == 0) {
             for (int i = 0; i < 3; i++) {
@@ -54,22 +60,8 @@ public class Application {
         }
     }
 
-    private Boolean isVisible(WebElement element, String text) {
-        for (int i = 0; i < 10; i++) {
-            if (element.getText().equals(text)) {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private Integer deleteAllProduct() {
+    @И("удаляем товар из корзины")
+    public void deleteAllProduct() {
         basketPage.checkout.click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         while (true) {
@@ -83,11 +75,33 @@ public class Application {
             }
         }
         basePage.open("http://localhost:8080/litecart");
-        return Integer.parseInt(basketPage.basketCount.getText());
+        countBasket = Integer.parseInt(basketPage.basketCount.getText());
     }
 
+    @Тогда("^количество элементов в корзине равно (\\d+)$")
+    public void checkBasket(int count) {
+        Assertions.assertEquals(count, countBasket);
+    }
+
+    @After
     public void quit() {
+        System.out.println("test1");
         driver.quit();
+    }
+
+    private Boolean isVisible(WebElement element, String text) {
+        for (int i = 0; i < 10; i++) {
+            if (element.getText().equals(text)) {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
